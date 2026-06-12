@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Bug Stomp Board — ForgePatterns</title>
+<meta name="description" content="Every software bug we catch in the ScrollForge shop, stomped and framed — before it ever reaches your saw.">
+<style>
+  :root {
+    --wood-dark: #5d4023;
+    --wood-mid: #8b5a2b;
+    --wood-light: #c89b6c;
+    --paper: #f7eeda;
+    --ink: #3b2a18;
+    --stamp-red: #a8341f;
+    --pine-green: #3f5d3a;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 32px 16px 64px;
+    font-family: Georgia, "Times New Roman", serif;
+    color: var(--ink);
+    background:
+      repeating-linear-gradient(
+        93deg,
+        var(--wood-mid) 0px, var(--wood-dark) 7px,
+        var(--wood-mid) 16px, #7a4e22 34px,
+        var(--wood-mid) 52px
+      );
+    min-height: 100vh;
+  }
+  .plaque {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--paper);
+    border: 14px solid var(--wood-dark);
+    border-radius: 6px;
+    box-shadow:
+      inset 0 0 0 2px var(--wood-light),
+      0 12px 40px rgba(0,0,0,0.55);
+    padding: 36px 40px 44px;
+    position: relative;
+  }
+  .nail { position: absolute; width: 14px; height: 14px; border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #ddd, #555 70%);
+    box-shadow: 1px 2px 3px rgba(0,0,0,0.5); }
+  .nail.tl { top: 10px; left: 10px; } .nail.tr { top: 10px; right: 10px; }
+  .nail.bl { bottom: 10px; left: 10px; } .nail.br { bottom: 10px; right: 10px; }
+  .brand {
+    text-align: center; font-size: 0.85rem; letter-spacing: 4px;
+    text-transform: uppercase; color: var(--wood-mid); margin-bottom: 6px;
+  }
+  h1 {
+    text-align: center; margin: 0 0 4px;
+    font-size: 2.0rem; letter-spacing: 1px;
+    color: var(--wood-dark);
+    text-transform: uppercase;
+  }
+  .subtitle {
+    text-align: center; font-style: italic; margin: 0 0 22px;
+    color: var(--wood-mid); font-size: 1.05rem;
+  }
+  .intro {
+    max-width: 640px; margin: 0 auto 28px; text-align: center;
+    font-size: 1.0rem; line-height: 1.6;
+  }
+  .tally-row {
+    display: flex; justify-content: center; gap: 28px;
+    flex-wrap: wrap; margin-bottom: 10px;
+  }
+  .tally {
+    text-align: center; background: #fff8e8;
+    border: 3px double var(--wood-mid); border-radius: 8px;
+    padding: 14px 26px; min-width: 170px;
+  }
+  .tally .big { font-size: 3.0rem; font-weight: bold; line-height: 1; }
+  .tally.stomped .big { color: var(--stamp-red); }
+  .tally.armor .big { color: var(--pine-green); }
+  .tally .label {
+    font-size: 0.78rem; text-transform: uppercase; letter-spacing: 2px;
+    margin-top: 8px; color: var(--ink);
+  }
+  .boots { text-align: center; font-size: 1.6rem; letter-spacing: 6px; margin: 14px 0 30px; }
+  .hunt-title {
+    font-size: 1.05rem; text-transform: uppercase; letter-spacing: 3px;
+    color: var(--wood-mid); border-bottom: 2px solid var(--wood-light);
+    padding-bottom: 6px; margin: 34px 0 16px;
+  }
+  .bug-card {
+    background: #fffdf5;
+    border: 1px solid var(--wood-light);
+    border-left: 6px solid var(--stamp-red);
+    border-radius: 4px;
+    padding: 14px 18px;
+    margin-bottom: 14px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+  }
+  .bug-card h3 { margin: 0 0 6px; font-size: 1.08rem; color: var(--stamp-red); }
+  .bug-card h3 .bug { text-decoration: line-through; }
+  .bug-card .meta {
+    font-size: 0.78rem; text-transform: uppercase; letter-spacing: 1.5px;
+    color: var(--wood-mid); margin-bottom: 8px;
+  }
+  .bug-card p { margin: 6px 0; font-size: 0.95rem; line-height: 1.5; }
+  .bug-card .guard {
+    font-size: 0.8rem; color: var(--pine-green); font-style: italic;
+    display: inline-block; margin-top: 4px;
+  }
+  .stamp {
+    float: right; transform: rotate(8deg);
+    border: 3px solid var(--stamp-red); color: var(--stamp-red);
+    font-weight: bold; font-size: 0.8rem; letter-spacing: 2px;
+    padding: 3px 10px; border-radius: 4px; text-transform: uppercase;
+    opacity: 0.85; margin-left: 12px;
+  }
+  .footer {
+    text-align: center; margin-top: 40px; font-style: italic;
+    color: var(--wood-mid); font-size: 0.95rem; line-height: 1.7;
+  }
+  .footer .forged { font-weight: bold; color: var(--wood-dark); font-size: 1.1rem; }
+</style>
+</head>
+<body>
+<div class="plaque">
+  <div class="nail tl"></div><div class="nail tr"></div>
+  <div class="nail bl"></div><div class="nail br"></div>
+
+  <div class="brand">ForgePatterns · RipSaw ScrollForge</div>
+  <h1>🪵 The Bug Stomp Board 🥾</h1>
+  <p class="subtitle">caught in our shop — before they ever reached your saw</p>
+
+  <p class="intro">
+    Good wood deserves good software. We work on ScrollForge the way a
+    scroller works a piece: cut close to the line, shape it true, sand
+    every edge, and run a finger along every contour until the fit is
+    perfect. Every rough spot below was found at our own bench — not by a
+    scroller mid-cut — and every one now has a permanent automated guard
+    standing watch so it can never creep back into your pattern.
+  </p>
+
+  <div class="tally-row">
+    <div class="tally stomped">
+      <div class="big" id="stomp-count">0</div>
+      <div class="label">Bugs Stomped</div>
+    </div>
+    <div class="tally armor">
+      <div class="big" id="suite-count">390</div>
+      <div class="label">Automated Checks, All Passing</div>
+    </div>
+  </div>
+  <div class="boots" id="boot-row"></div>
+
+  <div id="hunts"></div>
+
+  <p class="footer">
+    Sixteen bugs that will never waste a scroller's board.<br>
+    Stomped, fenced, and framed.<br>
+    <span class="forged">You've been Forged! 🔨</span>
+  </p>
+</div>
+
+<script>
+const board = {
+  suiteGreen: 401,
+  hunts: [
+    {
+      name: "Hunt #1 — Welding Letters Together",
+      bugs: [
+        {
+          title: "The Frozen Workshop",
+          severity: "App freeze",
+          feel: "One corrupted number in a shape could send the weld tool into a calculation so deep the whole app froze for hours — no error, no warning, just a stuck workshop.",
+          fix: "Corrupted geometry is now turned away at the door with a clear message, and the weld finishes in a blink."
+        }
+      ]
+    },
+    {
+      name: "Hunt #2 — Printing Your Pattern (PDF Export)",
+      bugs: [
+        {
+          title: "The Impossible Pattern Size",
+          severity: "Crash",
+          feel: "A glitched size value in the export dialog could crash the export deep in page-building instead of simply being refused.",
+          fix: "Pattern sizes are checked properly up front — bad values get a friendly message, never a crash."
+        },
+        {
+          title: "The Infinite Pattern",
+          severity: "Crash",
+          feel: "Same trap, infinitely-large edition.",
+          fix: "Caught by the same up-front check."
+        },
+        {
+          title: "The Divide-by-Nothing",
+          severity: "Crash",
+          feel: "A single straight cut line with a zero kerf setting crashed the exporter with a math error.",
+          fix: "It now explains there's nothing printable yet, in plain English."
+        },
+        {
+          title: "The Curly Apostrophe That Killed an Export",
+          severity: "Failed export",
+          feel: "Name your file José’s Café Sign.pdf — with the curly apostrophe every phone and Word doc types for you — and the entire export failed with a font error. The likeliest stumble any tester would ever hit.",
+          fix: "Smart quotes and special characters are now handled gracefully. Name your pattern anything you like."
+        }
+      ]
+    },
+    {
+      name: "Hunt #3 — Turning Text into Cut Paths",
+      bugs: [
+        {
+          title: "The Invisible Saboteur",
+          severity: "Silent pattern corruption",
+          feel: "A damaged save file could slip corrupted coordinates into your pattern during text conversion — invisible at first, then quietly breaking welds, island checks, and exports downstream.",
+          fix: "Conversion now refuses corrupted positions outright, with a clear message."
+        }
+      ]
+    },
+    {
+      name: "Hunt #4 — Opening a .forge File",
+      bugs: [
+        {
+          title: "NaN Drill Holes",
+          severity: "Silent pattern corruption",
+          feel: "A damaged file could place drill-hole marks at coordinates that don't exist.",
+          fix: "Every drill hole position is verified as a real, finite location before it loads."
+        },
+        {
+          title: "The Unguarded Cut Lines",
+          severity: "Silent pattern corruption",
+          feel: "Cut lines skipped file validation entirely — corrupted points loaded straight into your pattern.",
+          fix: "Cut lines now get the same full inspection as every other shape."
+        },
+        {
+          title: "The Phantom Line Width",
+          severity: "Silent pattern corruption",
+          feel: "A corrupted line width could load unchecked and quietly poison how patterns draw.",
+          fix: "Line widths must now be real numbers, verified at the door."
+        },
+        {
+          title: "The Letter-Salad Drill Hole",
+          severity: "Crash on open",
+          feel: "A drill hole position of letters instead of numbers crashed the Open dialog outright.",
+          fix: "Rejected with a proper file message instead."
+        },
+        {
+          title: "The Closed Cut Line Crash",
+          severity: "Crash on open",
+          feel: "A malformed cut line crashed the app instead of showing a file error.",
+          fix: "Caught and explained politely."
+        },
+        {
+          title: "The Shape-Shifted File",
+          severity: "Crash on open",
+          feel: "A file whose shape list wasn't actually a list crashed the validator itself.",
+          fix: "The structure of every section is now checked before its contents."
+        },
+        {
+          title: "The Array Document",
+          severity: "Crash on open",
+          feel: "A project file whose contents weren't shaped like a project crashed on the very first read.",
+          fix: "Both halves of a .forge file must be properly structured before anything else happens."
+        },
+        {
+          title: "The Array Manifest",
+          severity: "Crash on open",
+          feel: "Same door, manifest edition.",
+          fix: "Same structural check, both entries."
+        },
+        {
+          title: "Piece Number: True",
+          severity: "Data oddity",
+          feel: "A quirk of how computers store yes/no values let a piece be numbered “true.”",
+          fix: "Piece numbers must now be genuine counting numbers."
+        },
+        {
+          title: "The Zip Bomb",
+          severity: "Memory exhaustion",
+          feel: "A maliciously crafted tiny file could balloon to gigabytes when opened, eating all your computer's memory.",
+          fix: "Files are now measured fully unpacked — oversized ones are refused before a single byte loads."
+        }
+      ]
+    },
+    {
+      name: "Hunt #5 — The Undo Button's Memory",
+      bugs: [
+        {
+          title: "The Vanishing Save Prompt",
+          severity: "Silent work loss",
+          feel: "Save your pattern, undo something, then make one new change — and the app could believe everything was already saved. Close the window and the “save your changes?” reminder never appeared. Work gone, and nobody the wiser.",
+          fix: "The app now tracks whether your saved state is truly reachable, not just how many steps you've taken. If your work has drifted from the last save, you will always be asked."
+        }
+      ]
+    }
+  ]
+};
+
+const huntsEl = document.getElementById("hunts");
+let stomps = 0;
+for (const hunt of board.hunts) {
+  const title = document.createElement("div");
+  title.className = "hunt-title";
+  title.textContent = hunt.name;
+  huntsEl.appendChild(title);
+  for (const bug of hunt.bugs) {
+    stomps += 1;
+    const card = document.createElement("div");
+    card.className = "bug-card";
+    card.innerHTML =
+      '<span class="stamp">Stomped</span>' +
+      '<h3><span class="bug">🐛</span> ' + bug.title + "</h3>" +
+      '<div class="meta">' + bug.severity + "</div>" +
+      "<p>" + bug.feel + "</p>" +
+      "<p><strong>The stomp:</strong> " + bug.fix + "</p>" +
+      '<span class="guard">🛡 Fenced by a permanent automated test</span>';
+    huntsEl.appendChild(card);
+  }
+}
+document.getElementById("stomp-count").textContent = stomps;
+document.getElementById("suite-count").textContent = board.suiteGreen;
+document.getElementById("boot-row").textContent = "🥾".repeat(stomps);
+</script>
+</body>
+</html>
