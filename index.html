@@ -121,9 +121,46 @@
     color: var(--wood-mid); font-size: 0.95rem; line-height: 1.7;
   }
   .footer .forged { font-weight: bold; color: var(--wood-dark); font-size: 1.1rem; }
+  .site-return {
+    max-width: 900px; margin: 0 auto 22px;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 8px 20px;
+    background: rgba(40,26,14,0.62);
+    border: 1px solid var(--wood-dark);
+    border-radius: 6px; padding: 10px 18px;
+  }
+  .site-return .sr-brand {
+    display: flex; align-items: center; gap: 10px;
+    color: var(--paper); text-decoration: none;
+    font-weight: bold; font-size: 1.05rem; letter-spacing: 0.4px;
+  }
+  .site-return .sr-brand img { width: 34px; height: 34px; display: block; }
+  .site-return .sr-brand em { color: var(--wood-light); font-style: normal; }
+  .site-return nav { display: flex; flex-wrap: wrap; gap: 4px 18px; }
+  .site-return nav a {
+    color: var(--paper); text-decoration: none; font-size: 0.95rem;
+    padding: 4px 2px; border-bottom: 2px solid transparent;
+  }
+  .site-return nav a:hover { color: #fff; border-bottom-color: var(--stamp-red); }
+  @media (max-width: 560px) {
+    .site-return { flex-direction: column; align-items: flex-start; }
+  }
 </style>
 </head>
 <body>
+<header class="site-return">
+  <a class="sr-brand" href="https://forgepatterns.com/">
+    <img src="logo.png" alt="ForgePatterns logo">
+    <span><em>Rip</em>Saw ScrollForge</span>
+  </a>
+  <nav aria-label="ForgePatterns site">
+    <a href="https://forgepatterns.com/">Home</a>
+    <a href="https://forgepatterns.com/how-ripsaw-works/">How RipSaw Works</a>
+    <a href="https://forgepatterns.com/get-ripsaw/">Get RipSaw</a>
+    <a href="https://forgepatterns.com/help/">Help</a>
+    <a href="https://forgepatterns.com/about/">About</a>
+  </nav>
+</header>
 <div class="plaque">
   <div class="nail tl"></div><div class="nail tr"></div>
   <div class="nail bl"></div><div class="nail br"></div>
