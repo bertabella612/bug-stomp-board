@@ -154,7 +154,7 @@
   <div id="hunts"></div>
 
   <p class="footer">
-    Sixteen bugs that will never waste a scroller's board.<br>
+    <span id="bug-tally"></span> bugs that will never waste a scroller's board.<br>
     Stomped, fenced, and framed.<br>
     <span class="forged">You've been Forged! 🔨</span>
   </p>
@@ -162,7 +162,7 @@
 
 <script>
 const board = {
-  suiteGreen: 401,
+  suiteGreen: 583,
   hunts: [
     {
       name: "Hunt #1 — Welding Letters Together",
@@ -290,13 +290,157 @@ const board = {
           fix: "The app now tracks whether your saved state is truly reachable, not just how many steps you've taken. If your work has drifted from the last save, you will always be asked."
         }
       ]
+    },
+    {
+      name: "Hunt #6 — Drill Holes That Stay Put",
+      bugs: [
+        {
+          title: "Move Left the Drill Mark Behind",
+          severity: "Wrong printed pattern",
+          feel: "Drag a cutout to a new spot and its drill entry mark stayed at the old one — the printed pattern would have you drilling solid wood.",
+          fix: "Drill marks now travel with their cutout wherever you move it, undo included."
+        },
+        {
+          title: "Flip Left the Drill Mark Behind",
+          severity: "Wrong printed pattern",
+          feel: "Mirror a cutout and everything flipped except the drill mark — it could end up outside the shape entirely.",
+          fix: "Flipping now mirrors the drill mark right along with the wood."
+        },
+        {
+          title: "Rotate Left the Drill Mark Behind",
+          severity: "Wrong printed pattern",
+          feel: "Spin a cutout to a new angle and the drill mark stayed where it started.",
+          fix: "The drill mark turns with the piece, exactly in step."
+        },
+        {
+          title: "Scale Left the Drill Mark Behind",
+          severity: "Wrong printed pattern",
+          feel: "Resize a cutout and the drill mark kept its old distance from center — outside a shrunken piece, or stranded mid-band on an enlarged ring.",
+          fix: "Resizing carries the drill mark proportionally, and undo puts it back exactly."
+        }
+      ]
+    },
+    {
+      name: "Hunt #7 — Bridges You Can Trust",
+      bugs: [
+        {
+          title: "The Bridge of Nowhere Width",
+          severity: "Silent pattern corruption",
+          feel: "A corrupted width value could build a bridge whose every coordinate was nonsense — invisible poison planted right in your pattern.",
+          fix: "Bridge widths must now be real, finite measurements before a single outline point is computed."
+        },
+        {
+          title: "The Infinitely Wide Bridge",
+          severity: "Silent pattern corruption",
+          feel: "Same open gate, infinitely-wide edition.",
+          fix: "Caught by the same real-measurement check."
+        },
+        {
+          title: "The Bridge Anchored in Nowhere",
+          severity: "Silent pattern corruption",
+          feel: "A corrupted anchor point smeared nonsense coordinates across the whole bridge outline.",
+          fix: "Every bridge anchor must be a real location on the board before the bridge is built."
+        }
+      ]
+    },
+    {
+      name: "Hunt #8 — An Honest Blade Width",
+      bugs: [
+        {
+          title: "The Blade Width That Wasn't a Number",
+          severity: "Silent session poisoning",
+          feel: "A corrupted kerf (blade width) value could slip into your session and quietly poison everything measured from it — bridge widths, drill hole sizes, printed line weights.",
+          fix: "The blade width must now be a real, finite measurement before it's accepted."
+        },
+        {
+          title: "The Infinitely Wide Blade",
+          severity: "Silent session poisoning",
+          feel: "Same open gate, infinitely-wide edition.",
+          fix: "Caught by the same real-measurement check."
+        },
+        {
+          title: "The Save File That Wouldn't Reopen",
+          severity: "Locked-out project",
+          feel: "Set a blade width bigger than the app allows, save your pattern, and your own app refused to open the file again — no warning at either end. Your work, locked behind your own front door.",
+          fix: "Anything the app lets you set, the app can always load back. Promise verified end-to-end, every test run."
+        }
+      ]
+    },
+    {
+      name: "Hunt #9 — One Cut Line, One Truth",
+      bugs: [
+        {
+          title: "The Two-Faced Cut Line",
+          severity: "Silent file drift",
+          feel: "Adjust a point on a cut line and your saved file quietly kept two versions of it — the line you shaped, and a ghost of the one you started with, carried along in every copy and move, waiting to resurface.",
+          fix: "A cut line now has exactly one truth: edit a point and every record of that line agrees, in the file and on the screen."
+        }
+      ]
+    },
+    {
+      name: "Hunt #10 — A Picture in Its Place",
+      bugs: [
+        {
+          title: "The Picture Anchored in Nowhere",
+          severity: "Silent canvas poisoning",
+          feel: "Your reference picture's position was the one measurement a damaged file could corrupt unchecked — nonsense coordinates would quietly poison where everything sits on the canvas.",
+          fix: "A picture's place on the board must now be a real location, verified the moment the file opens — the last unguarded door from our shop-wide inspection, closed."
+        }
+      ]
+    },
+    {
+      name: "Hunt #11 — The Whole Group Moves Together",
+      bugs: [
+        {
+          title: "The Delete Key That Ignored the Group",
+          severity: "Silent no-op",
+          feel: "Select several pieces at once, press Delete — and nothing happened. No message, no deletion, just silence.",
+          fix: "Delete now clears the whole selection in one step — and one undo brings every piece back, drill marks and all."
+        },
+        {
+          title: "The Arrow Keys That Ignored the Group",
+          severity: "Silent no-op",
+          feel: "Same silence when nudging a group with the arrow keys: nothing moved.",
+          fix: "Arrow keys now move the whole selection together, as one motion with one undo."
+        }
+      ]
+    },
+    {
+      name: "Hunt #12 — Intarsia: Inlay, Overlay & Clean Seams",
+      bugs: [
+        {
+          title: "The Arrow That Ran Off the Wood",
+          severity: "Wrong printed pattern",
+          feel: "On the printed part sheet, the wood-grain arrows on small or oddly-shaped pieces ran right off the piece into blank space — pointing the grain nowhere.",
+          fix: "Every grain arrow now tucks itself inside the real piece outline, so it always points true."
+        },
+        {
+          title: "The Number That Wouldn't Land",
+          severity: "Unreadable pattern",
+          feel: "On tight or narrow pieces, the piece number could spill outside the shape — two pieces the same size, one numbered cleanly, the other not.",
+          fix: "Numbers now find the deepest spot inside each piece and only sit there if they truly fit; the tightest slivers get a tidy little leader line instead."
+        },
+        {
+          title: "The Spur on the Seam",
+          severity: "Jagged cut line",
+          feel: "Joining two angled pieces could leave a hair-thin spur along the shared edge — invisible in the math, but jagged on the printed line.",
+          fix: "The pieces now line up exactly before they're joined, so the shared seam comes out clean."
+        },
+        {
+          title: "The Seam That Tore Open",
+          severity: "Broken join",
+          feel: "Reshaping a piece already joined to its neighbors could tear the finished seam apart while the pieces still moved together.",
+          fix: "Joined pieces are now protected from stray edits — unjoin to reshape, then rejoin — so a finished seam stays put."
+        }
+      ]
     }
   ]
 };
 
 const huntsEl = document.getElementById("hunts");
 let stomps = 0;
-for (const hunt of board.hunts) {
+// Newest hunt at the top of the wall; data stays in campaign order.
+for (const hunt of [...board.hunts].reverse()) {
   const title = document.createElement("div");
   title.className = "hunt-title";
   title.textContent = hunt.name;
@@ -318,6 +462,7 @@ for (const hunt of board.hunts) {
 document.getElementById("stomp-count").textContent = stomps;
 document.getElementById("suite-count").textContent = board.suiteGreen;
 document.getElementById("boot-row").textContent = "🥾".repeat(stomps);
+document.getElementById("bug-tally").textContent = stomps;
 </script>
 </body>
 </html>
