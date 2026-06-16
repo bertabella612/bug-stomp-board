@@ -201,7 +201,7 @@
 
 <script>
 const board = {
-  suiteGreen: 583,
+  suiteGreen: 600,
   hunts: [
     {
       name: "Hunt #1 — Welding Letters Together",
@@ -470,6 +470,41 @@ const board = {
           severity: "Broken join",
           feel: "Reshaping a piece already joined to its neighbors could tear the finished seam apart while the pieces still moved together.",
           fix: "Joined pieces are now protected from stray edits — unjoin to reshape, then rejoin — so a finished seam stays put."
+        }
+      ]
+    },
+    {
+      name: "Hunt #13 — Intarsia & Printing, Round 2",
+      bugs: [
+        {
+          title: "Two Cut Lines on One Spot",
+          severity: "Confusing cut line",
+          feel: "After fitting an inlay spot into a piece, that spot could print with two slightly-offset cut lines — leaving you guessing which one to follow at the saw.",
+          fix: "Each spot now prints one clean cut line."
+        },
+        {
+          title: "The Click That Nudged a Piece",
+          severity: "Accidental move",
+          feel: "Just clicking a piece could nudge it out of place, so you'd have to drag it back where it was — every single time.",
+          fix: "A piece now only moves when you deliberately drag it. A plain click just selects, and your pieces stay put."
+        },
+        {
+          title: "The Join That Wouldn't",
+          severity: "Couldn't combine groups",
+          feel: "You could join two loose pieces, but not two groups that were already joined together — the tool simply wouldn't take it.",
+          fix: "Now you can join any pieces or groups, however you like — a couple at a time or a whole bunch at once — into one locked unit."
+        },
+        {
+          title: "The Part Full of Holes",
+          severity: "Wrong printed part",
+          feel: "On the parts page, a piece could print with holes punched in it instead of as its own clean, separate part to cut.",
+          fix: "Every part now prints as its own solid shape; the assembly page shows how they all fit together."
+        },
+        {
+          title: "The Legend That Hid Pieces",
+          severity: "Incomplete legend",
+          feel: "Mixing a painted piece into a wood pattern made the legend show only the painted piece — and hide every wood piece.",
+          fix: "The legend now lists every piece and exactly what it's made of, wood or color — nothing left out."
         }
       ]
     }
