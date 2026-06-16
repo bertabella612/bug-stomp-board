@@ -201,7 +201,7 @@
 
 <script>
 const board = {
-  suiteGreen: 600,
+  suiteGreen: 603,
   hunts: [
     {
       name: "Hunt #1 — Welding Letters Together",
@@ -505,6 +505,12 @@ const board = {
           severity: "Incomplete legend",
           feel: "Mixing a painted piece into a wood pattern made the legend show only the painted piece — and hide every wood piece.",
           fix: "The legend now lists every piece and exactly what it's made of, wood or color — nothing left out."
+        },
+        {
+          title: "The Vanishing Grain Arrows",
+          severity: "Missing from the print",
+          feel: "Mark the wood-grain direction all over a mostly-wood pattern, print it, and the arrows were nowhere to be found — one painted piece had quietly switched the whole pattern to color mode, which leaves grain arrows off.",
+          fix: "A pattern with any wood now keeps its grain arrows; only an all-painted pattern leaves them off. Your arrows print right where you placed them."
         }
       ]
     }
